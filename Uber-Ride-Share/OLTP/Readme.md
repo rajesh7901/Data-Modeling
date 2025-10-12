@@ -1,6 +1,6 @@
 # 🚗 Uber Ride Sharing - OLTP Data Model
 
-This repository contains the **OLTP (Online Transaction Processing)** data model for an Uber-like ride-sharing application. The database schema is designed to efficiently manage transactional operations including ride booking, driver and vehicle management, payment handling, and user feedback.
+This folder contains the **OLTP (Online Transaction Processing)** data model for an Uber-like ride-sharing application. The database schema is designed to efficiently manage transactional operations including ride booking, driver and vehicle management, payment handling, and user feedback.
 
 ---
 
@@ -27,13 +27,12 @@ The SQL script creates the following tables:
 
 ---
 
-## 📑 Entity Relationship Diagram
+## 🧭 Entity Relationship Diagram
 
-An ER diagram has been included for visual understanding:
+Below is the ER diagram representing the OLTP schema for the ride-sharing system:
 
-📄 `Ride_Share_OLTP_DATA_MODEL.drawio.png`
+![ER Diagram](Ride_Share_OLTP_DATA_MODEL.drawio.png)
 
-You can open this file using [draw.io](https://app.diagrams.net/) or any image viewer.
 
 ---
 
