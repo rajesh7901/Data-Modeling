@@ -111,18 +111,18 @@ CREATE TABLE Payment (
 -- Trip_Feedback Table creation
 DROP TABLE IF EXISTS Trip_Feedback;
 CREATE TABLE Trip_Feedback (
-    Trip_ID INT,
-    Rated_BY_User_ID INT,   -- FK to Rider or Driver
-    Rated_TO_User_ID INT,   -- FK to Rider or Driver
-    Rated_BY_Type ENUM('RIDER','DRIVER'),
-    Rated_TO_Type ENUM('RIDER','DRIVER'),
+    Feedback_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Trip_ID INT NOT NULL,
+    Rated_By_User_ID INT NOT NULL,   
+    Rated_To_User_ID INT NOT NULL,  
+    Rated_By_Type ENUM('RIDER','DRIVER') NOT NULL,
+    Rated_To_Type ENUM('RIDER','DRIVER') NOT NULL,
     Rating INT CHECK (Rating BETWEEN 1 AND 5),
     Review TEXT,
-    Creation_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-    Last_update_date DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    Creation_Date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    Last_Update_Date DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     Created_By VARCHAR(50),
-	Updated_By VARCHAR(50),
-
-    PRIMARY KEY (Trip_ID, Rated_BY_User_ID, Rated_TO_User_ID),
+    Updated_By VARCHAR(50),
     FOREIGN KEY (Trip_ID) REFERENCES Trip(Trip_ID)
 );
+
