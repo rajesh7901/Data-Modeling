@@ -13,8 +13,8 @@
 ***************************************************************************/
 
 -- Driver Table creation
-DROP TABLE IF EXISTS Driver;
-CREATE TABLE Driver (
+DROP TABLE IF EXISTS driver;
+CREATE TABLE driver (
     Driver_ID INT PRIMARY KEY AUTO_INCREMENT,
     Name VARCHAR(100) NOT NULL,
     License_Number VARCHAR(50) UNIQUE NOT NULL,
@@ -22,15 +22,15 @@ CREATE TABLE Driver (
     Rating DECIMAL(3,2),
     Phone VARCHAR(20) UNIQUE NOT NULL,
     Email VARCHAR(100) UNIQUE NOT NULL,
-	Creation_Date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    Creation_Date DATETIME DEFAULT CURRENT_TIMESTAMP,
     End_Date DATETIME,
     Active BOOLEAN DEFAULT TRUE
 );
 
 
 -- Rider Table creation
-DROP TABLE IF EXISTS Rider;
-CREATE TABLE Rider (
+DROP TABLE IF EXISTS rider;
+CREATE TABLE rider (
     Rider_ID INT PRIMARY KEY AUTO_INCREMENT,
     Name VARCHAR(100) NOT NULL,
     Email VARCHAR(100) UNIQUE NOT NULL,
@@ -40,8 +40,8 @@ CREATE TABLE Rider (
 );
 
 -- Vehicle TABLE creation
-DROP TABLE IF EXISTS Vehicle;
-CREATE TABLE Vehicle (
+DROP TABLE IF EXISTS vehicle;
+CREATE TABLE vehicle (
     Vehicle_ID INT PRIMARY KEY AUTO_INCREMENT,
     Make VARCHAR(50),
     Model VARCHAR(50),
@@ -50,12 +50,12 @@ CREATE TABLE Vehicle (
     Vehicle_Type VARCHAR(50),
     Number_Plate VARCHAR(20) UNIQUE,
     Active BOOLEAN DEFAULT TRUE,
-	Creation_Date DATETIME DEFAULT CURRENT_TIMESTAMP
+    Creation_Date DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Trip Table creation
-DROP TABLE IF EXISTS Trip;
-CREATE TABLE Trip (
+DROP TABLE IF EXISTS trip;
+CREATE TABLE trip (
     Trip_ID INT PRIMARY KEY AUTO_INCREMENT,
     Rider_ID INT NOT NULL,
     Driver_ID INT NOT NULL,
@@ -73,29 +73,30 @@ CREATE TABLE Trip (
     Trip_Duration INT, -- In minutes
     Trip_Status VARCHAR(50) NOT NULL,
 
-    FOREIGN KEY (Rider_ID) REFERENCES Rider(Rider_ID),
-    FOREIGN KEY (Driver_ID) REFERENCES Driver(Driver_ID),
-    FOREIGN KEY (Vehicle_ID) REFERENCES Vehicle(Vehicle_ID)
+    FOREIGN KEY (Rider_ID) REFERENCES rider(Rider_ID),
+    FOREIGN KEY (Driver_ID) REFERENCES driver(Driver_ID),
+    FOREIGN KEY (Vehicle_ID) REFERENCES vehicle(Vehicle_ID)
 );
 
 
 -- Driver-Vehicle Assignment Table creation
-CREATE TABLE Driver_Vehicle_Assignment (
+DROP TABLE IF EXISTS driver_vehicle_assignment;
+CREATE TABLE driver_vehicle_assignment (
     Assignment_ID INT PRIMARY KEY AUTO_INCREMENT,
     Driver_ID INT NOT NULL,
     Vehicle_ID INT NOT NULL,
     Start_Date DATE NOT NULL,
     End_Date DATE,
 
-    FOREIGN KEY (Driver_ID) REFERENCES Driver(Driver_ID),
-    FOREIGN KEY (Vehicle_ID) REFERENCES Vehicle(Vehicle_ID),
+    FOREIGN KEY (Driver_ID) REFERENCES driver(Driver_ID),
+    FOREIGN KEY (Vehicle_ID) REFERENCES vehicle(Vehicle_ID),
     CHECK (Start_Date <= IFNULL(End_Date, Start_Date))
 );
 
 
 -- Payment Table creation
-DROP TABLE IF EXISTS Payment;
-CREATE TABLE Payment (
+DROP TABLE IF EXISTS payment;
+CREATE TABLE payment (
     Payment_ID INT PRIMARY KEY AUTO_INCREMENT,
     Trip_ID INT UNIQUE NOT NULL,
     Amount DECIMAL(10, 2) NOT NULL,
@@ -104,13 +105,13 @@ CREATE TABLE Payment (
     Creation_Date DATETIME DEFAULT CURRENT_TIMESTAMP,
     Payment_Date DATETIME,
 
-    FOREIGN KEY (Trip_ID) REFERENCES Trip(Trip_ID)
+    FOREIGN KEY (Trip_ID) REFERENCES trip(Trip_ID)
 );
 
 
 -- Trip_Feedback Table creation
-DROP TABLE IF EXISTS Trip_Feedback;
-CREATE TABLE Trip_Feedback (
+DROP TABLE IF EXISTS trip_feedback;
+CREATE TABLE trip_feedback (
     Feedback_ID INT PRIMARY KEY AUTO_INCREMENT,
     Trip_ID INT NOT NULL,
     Rated_By_User_ID INT NOT NULL,   
@@ -123,6 +124,5 @@ CREATE TABLE Trip_Feedback (
     Last_Update_Date DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     Created_By VARCHAR(50),
     Updated_By VARCHAR(50),
-    FOREIGN KEY (Trip_ID) REFERENCES Trip(Trip_ID)
+    FOREIGN KEY (Trip_ID) REFERENCES trip(Trip_ID)
 );
-
